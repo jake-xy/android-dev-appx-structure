@@ -125,7 +125,7 @@ public class xApp extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        for (xPanel p : panels) p.handler.updateEvent(event);
+        for (xPanel p : panels) p.handler.type = -1;
         switch (event.getActionMasked()) {
             // events that are handled by my custom event handler
             case MotionEvent.ACTION_UP:
@@ -133,6 +133,7 @@ public class xApp extends SurfaceView implements SurfaceHolder.Callback {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
             case MotionEvent.ACTION_MOVE:
+                for (xPanel p : panels) p.handler.updateEvent(event);
                 return true;
         }
         return super.onTouchEvent(event);

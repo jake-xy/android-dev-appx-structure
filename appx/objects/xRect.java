@@ -23,6 +23,7 @@ public class xRect extends View {
     public xRect(float x, float y, float w, float h, xPanel parentPanel) {
         this(x, y, w, h);
         this.panel = parentPanel;
+        super.setFocusable(false);
     }
 
     public xRect(float x, float y, float w, float h) {
@@ -46,6 +47,10 @@ public class xRect extends View {
         updateValues();
     }
 
+    public void setX(float x) {
+        setLeft(x);
+    }
+
     public void setRight(float newRight) {
         this.x = newRight - this.w;
         updateValues();
@@ -54,6 +59,10 @@ public class xRect extends View {
     public void setTop(float newTop) {
         this.y = newTop;
         updateValues();
+    }
+
+    public void setY(float y) {
+        setTop(y);
     }
 
     public void setBot(float newBot) {
