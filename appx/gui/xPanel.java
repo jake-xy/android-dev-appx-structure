@@ -3,6 +3,7 @@ package com.xcorp.appx.gui;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.xcorp.appx.objects.xRect;
 import com.xcorp.appx.xApp;
@@ -30,6 +31,7 @@ public abstract class xPanel extends View {
 
     // overrideable methods
     public void onCreate() {
+        // event handler for this panel
         handler = new TouchHandler(this);
     }
 

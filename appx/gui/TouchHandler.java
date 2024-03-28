@@ -56,7 +56,6 @@ public class TouchHandler {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-                if (this.pointerID == pointerID) pointerID = -1;
                 prevPos = null;
                 break;
         }

@@ -55,12 +55,12 @@ public class MainPanel extends xPanel {
 
         // background
         Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.GREEN);
+        app.rect.draw(canvas, paint);
+
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(20);
-
-        if (rect.topLeft == app.rect.topLeft) paint.setColor(Color.RED);
-
+        paint.setColor(Color.BLUE);
         canvas.drawRect(rect.left, rect.top, rect.right, rect.bot, paint);
     }
 }

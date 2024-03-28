@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.xcorp.appx.gui.xPanel;
 import com.xcorp.appx.objects.Sprites;
@@ -21,6 +22,7 @@ import java.util.Random;
 public class xApp extends SurfaceView implements SurfaceHolder.Callback {
 
     // public attributes
+    public AppCompatActivity mainActivity;
     public RelativeLayout layout;
     public Resources resources;
     public Context context;
@@ -33,9 +35,11 @@ public class xApp extends SurfaceView implements SurfaceHolder.Callback {
     public float dt, APP_SPEED = 30;
     private double prevTime;
 
-    public xApp(Context context) {
-        super(context);
-        layout = new RelativeLayout(context);
+    public xApp(AppCompatActivity mainActivity) {
+        super(mainActivity);
+        this.mainActivity = mainActivity;
+
+        layout = new RelativeLayout(mainActivity);
 
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);

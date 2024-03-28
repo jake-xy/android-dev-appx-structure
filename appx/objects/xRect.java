@@ -18,11 +18,11 @@ public class xRect extends View {
     public float left, top, right, bot; // square-like attributes
     public float[] topLeft = new float[2], botRight = new float[2];
     public float centerX, centerY;
-    private xPanel parentPanel;
+    private xPanel panel;
 
-    public xRect(float x, float y, float w, float h, xPanel panel) {
+    public xRect(float x, float y, float w, float h, xPanel parentPanel) {
         this(x, y, w, h);
-        this.parentPanel = panel;
+        this.panel = parentPanel;
     }
 
     public xRect(float x, float y, float w, float h) {
@@ -213,7 +213,7 @@ public class xRect extends View {
     }
 
     public xRect copy() {
-        return new xRect(this.x, this.y, this.w, this.h, parentPanel);
+        return new xRect(this.x, this.y, this.w, this.h, panel);
     }
 
     public static xRect[] append(xRect item, xRect[] array) {
