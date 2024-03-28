@@ -10,6 +10,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.xcorp.appx.objects.xFont;
@@ -24,9 +25,10 @@ public class xMessageBox {
     private TextView textView;
     public xRect rect;
     public boolean active = true;
+    private int maxScrollY;
     // ui
     private String title;
-    public float padding = 0.11f;
+    public float padding = 0.11f, scrollBarHeight = 0.06f;
     public int bgColor, textColor;
     private xFont titleFont;
     private Bitmap titleBitmap;
@@ -59,6 +61,10 @@ public class xMessageBox {
         textView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         textView.setTypeface(panel.app.resources.getFont(R.font.arial));
         panel.app.layout.addView(textView);
+    }
+
+    private int getMaxScrollY() {
+        return textView.getLayout().getLineTop(textView.getLineCount()) - textView.getHeight();
     }
 
     public xMessageBox(xPanel parentPanel, float y, float w, float h) {
@@ -101,6 +107,8 @@ public class xMessageBox {
         paint.setColor(bgColor);
         canvas.drawRoundRect(rect.left, rect.top, rect.right, rect.bot, 25, 25, paint);
 
+        titleBitmap = titleFont.render("scroll: " + textView.getScrollY() + " / " + getMaxScrollY(), Color.BLACK);
+
         // render the title
         if (title != null) {
             canvas.drawBitmap(
@@ -109,6 +117,23 @@ public class xMessageBox {
                 rect.top + rect.h*padding/2, null
             );
         }
+
+        // draw scroll bar
+        paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(rect.w*0.01f);
+        paint.setAlpha(100);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        float scrollBarH = textView.getHeight()*scrollBarHeight;
+        float maxScrollH = textView.getHeight() - scrollBarH;
+        float scrollVal = (float)textView.getScrollY()/(float)getMaxScrollY();
+        canvas.drawLine(
+        textView.getX() + textView.getWidth(),
+        textView.getY() + scrollBarH/2 + maxScrollH*scrollVal - scrollBarH/2,
+        textView.getX() + textView.getWidth(),
+        textView.getY() + scrollBarH/2 + maxScrollH*scrollVal + scrollBarH/2,
+              paint
+        );
 
         // ensures that the textView's visibility is changed only once (save process time)
         if (panel.visible && textView.getVisibility() == View.VISIBLE) return;
@@ -129,6 +154,7 @@ public class xMessageBox {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
+
                 if (touchID == handler.pointerID) {
                     if (!rect.collides(handler.getPos(touchID))) {
                         setActive(false);

@@ -56,7 +56,7 @@ public class SubPanel extends xPanel {
         }
 
         if (handler.type == MotionEvent.ACTION_DOWN || handler.type == MotionEvent.ACTION_POINTER_DOWN) {
-            if (handler.pointerID == 2)
+            if (handler.pointerID == 1)
                 messageBox.setActive(true);
         }
 
